@@ -9,7 +9,7 @@ import java.nio.ByteOrder;
 public class StatePower extends Message {
 
     @Getter
-    private boolean level;
+    public boolean level;
 
     @Getter
     private long port;

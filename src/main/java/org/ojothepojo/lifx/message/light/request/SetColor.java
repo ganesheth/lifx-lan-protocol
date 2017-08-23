@@ -32,7 +32,7 @@ public class SetColor extends Message {
     private void initialize(int hue, int saturation, int brightness, int kelvin, long duration) {
         checkUnsigned16bit(hue);
         checkUnsigned16bit(saturation);
-        checkUnsigned16bit(brightness);
+        //checkUnsigned16bit(brightness);
         checkUnsigned16bit(kelvin);
         checkUnsigned32bit(duration);
         this.hue = (short) hue;

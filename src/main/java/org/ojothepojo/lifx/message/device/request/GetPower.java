@@ -11,7 +11,7 @@ public class GetPower extends Message{
         super((short) 36, (short) 20, "00:00:00:00:00:00");
     }
 
-    public GetPower(String targetMacAddress, String sourceIpAddress) {
+    public GetPower(String targetMacAddress) {
         super((short) 36, (short) 20, targetMacAddress);
     }
 

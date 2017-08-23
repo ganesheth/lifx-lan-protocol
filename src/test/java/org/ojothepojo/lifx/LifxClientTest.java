@@ -39,7 +39,7 @@ public class LifxClientTest {
         LifxClient client = new LifxClient();
         client.startListenerThread();
         client.getEventBus().register(new LoggingEventHandler());
-        client.sendMessage(new GetColor("D0:73:D5:13:00:9B", Util.getIpAddress()));
+        client.sendMessage(new GetColor("D0:73:D5:13:00:9B"));
         Thread.sleep(500); // wait a bit for the bulb to respond.
         client.stop();
         Thread.sleep(200); // Give the thread some time for the socket to close

@@ -11,7 +11,7 @@ public class GetColor extends Message {
         super((short) 36, (short) 101, "00:00:00:00:00:00");
     }
 
-    public GetColor(String targetMacAddress, String sourceIpAddress) {
+    public GetColor(String targetMacAddress) {
         super((short) 36, (short) 101, targetMacAddress);
     }
 

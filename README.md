@@ -15,6 +15,33 @@ LifxClient lifxClient = new LifxClient();
 lifxClient.sendMessage(new SetPower(true));
         
 ```
+
+
+A further simplification in this fork is the use of a wrapper class and model of the bulb itself.
+```
+		List<LifxBulb> bulbs = LifxWrapper.discoverBulbs(2000);
+		for(LifxBulb bulb : bulbs) {
+			bulb.power = 0;
+			LifxWrapper.updateBulbPower(bulb);
+			LifxWrapper.refreshBulbPower(bulb);
+			System.out.println(bulb.power);
+			
+			bulb.power = 100;
+			LifxWrapper.updateBulbPower(bulb);
+			LifxWrapper.refreshBulbPower(bulb);
+			System.out.println(bulb.power);
+			
+			bulb.brightness = 30000;
+			LifxWrapper.updateBulbColor(bulb, 0);			
+			LifxWrapper.refreshBulbState(bulb);
+			System.out.println(bulb.brightness);
+			
+			bulb.brightness = 15000;
+			LifxWrapper.updateBulbColor(bulb, 0);			
+			LifxWrapper.refreshBulbState(bulb);
+			System.out.println(bulb.brightness);
+		}
+```
 This might be the easiest to get started but not the most recommended. See the [protocol documentation](https://lan.developer.lifx.com/) 
 for more details. 
 

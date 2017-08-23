@@ -13,17 +13,17 @@ public class StateColor extends Message {
     private static final Logger LOGGER = LoggerFactory.getLogger(StateColor.class);
 
     @Getter
-    private short hue;
+    public short hue;
     @Getter
-    private short saturation;
+    public short saturation;
     @Getter
-    private short brightness;
+    public short brightness;
     @Getter
-    private short kelvin;
+    public short kelvin;
     @Getter
-    private short power;
+    public short power;
     @Getter
-    private String label;
+    public String label;
 
     public StateColor(byte[] bytes) {
         super(bytes);

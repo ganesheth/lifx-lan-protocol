@@ -9,6 +9,9 @@ import javax.xml.bind.DatatypeConverter;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 
 public class PacketListenerThread implements Runnable {
     private static final Logger LOGGER = LoggerFactory.getLogger(PacketListenerThread.class);
@@ -28,8 +31,13 @@ public class PacketListenerThread implements Runnable {
                 byte[] buf = new byte[100];
                 DatagramPacket receivePacket = new DatagramPacket(buf, buf.length);
                 socket.receive(receivePacket);
-                LOGGER.debug(receivePacket.getAddress() +  " " + DatatypeConverter.printHexBinary(buf));
+                if(!isAnswerFromBulb(receivePacket))
+                {
+                	//LOGGER.debug("Received self message: " + receivePacket.getAddress());
+                	continue;
+                }                              
                 Message message = ResponseMessageFactory.toMessage(buf);
+                LOGGER.debug("Received message: " + receivePacket.getAddress() +  " " + message.toString() + " " + DatatypeConverter.printHexBinary(buf));
                 eventBus.post(new MessageReceivedEvent(message));
             }
         } catch (IOException e) {
@@ -37,8 +45,19 @@ public class PacketListenerThread implements Runnable {
         }
 
         LOGGER.info("Thread was interrupted. ");
-        socket.close();
+        //socket.close();
     }
+    
+    
+    private static boolean isAnswerFromBulb(DatagramPacket packet) throws SocketException {
+        InetAddress inetAddress = packet.getAddress();
+        if (inetAddress.isAnyLocalAddress() || inetAddress.isLoopbackAddress()
+            || NetworkInterface.getByInetAddress(inetAddress) != null) {
+            return false;
+        } else {
+            return true;
+        }
+    }    
 
 
 }
